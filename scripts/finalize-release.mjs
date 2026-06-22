@@ -10,7 +10,7 @@ const release = path.join(
 const packageJson = JSON.parse(await readFile(path.join(process.cwd(), "package.json"), "utf8"));
 const brand = JSON.parse(await readFile(path.join(process.cwd(), "brand.config.json"), "utf8"));
 const files = await readdir(release);
-const installer = `${brand.installerName} ${packageJson.version}.exe`;
+const installer = `${brand.releaseArtifactName}-${packageJson.version}.exe`;
 if (!installer) throw new Error("Windows installer is missing.");
 if (!files.includes(installer)) throw new Error(`Expected installer is missing: ${installer}`);
 await access(path.join(release, "win-unpacked", "resources", "bin", "cloudflared.exe"));

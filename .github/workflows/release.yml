@@ -55,7 +55,7 @@ jobs:
           if (!(Get-ChildItem release -Filter "*.sha256")) { throw "SHA-256 file is missing" }
           if (!(Get-ChildItem release -Filter "CoolTunnel-Website-*.zip")) { throw "Website upload package is missing" }
           if ($env:CSC_LINK) {
-            $installer = Get-ChildItem release -Filter "CoolTunnel Setup *.exe" | Select-Object -First 1
+            $installer = Get-ChildItem release -Filter "CoolTunnel-Setup-*.exe" | Select-Object -First 1
             $signature = Get-AuthenticodeSignature $installer.FullName
             if ($signature.Status -ne "Valid") { throw "Signed release does not have a valid Authenticode signature" }
           } else {
@@ -69,7 +69,7 @@ jobs:
             gh release create $tag --title "CoolTunnel $tag" --notes-file RELEASE_NOTES.md
           }
           $artifacts = Get-ChildItem release -File | Where-Object {
-            $_.Name -like "CoolTunnel Setup *.exe" -or
+            $_.Name -like "CoolTunnel-Setup-*.exe" -or
             $_.Name -like "*.blockmap" -or
             $_.Name -like "*.sha256" -or
             $_.Name -like "CoolTunnel-Website-*.zip" -or

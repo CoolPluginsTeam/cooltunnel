@@ -12,6 +12,7 @@
   "packageName": "cooltunnel",
   "executableName": "CoolTunnel",
   "installerName": "CoolTunnel Setup",
+  "releaseArtifactName": "CoolTunnel-Setup",
   "copyright": "Copyright © 2026 Cool Plugins LLP",
   "license": "MIT",
   "urls": {

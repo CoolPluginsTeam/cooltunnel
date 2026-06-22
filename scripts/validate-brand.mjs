@@ -19,6 +19,9 @@ const assertions = [
   [brand.urls.privacy === "https://coolplugins.net/cooltunnel/privacy/", "privacy URL"],
   [brand.urls.source === "https://github.com/CoolPluginsTeam/cooltunnel", "source URL"]
 ];
+if (brand.releaseArtifactName !== "CoolTunnel-Setup") {
+  throw new Error("Brand validation failed for GitHub-safe release artifact name.");
+}
 for (const [passed, label] of assertions) {
   if (!passed) throw new Error(`Brand validation failed for ${label}.`);
 }

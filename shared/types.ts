@@ -27,6 +27,7 @@ export interface BrandInfo {
   packageName: string;
   executableName: string;
   installerName: string;
+  releaseArtifactName: string;
   copyright: string;
   license: string;
   urls: {

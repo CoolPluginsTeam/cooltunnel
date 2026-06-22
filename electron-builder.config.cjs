@@ -41,7 +41,7 @@ module.exports = {
     createDesktopShortcut: true,
     createStartMenuShortcut: true,
     shortcutName: brand.productName,
-    artifactName: `${brand.installerName} \${version}.\${ext}`,
+    artifactName: `${brand.releaseArtifactName}-\${version}.\${ext}`,
     installerIcon: path.join("build", "icon.ico"),
     uninstallerIcon: path.join("build", "icon.ico")
   }
