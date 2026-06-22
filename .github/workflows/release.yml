@@ -22,8 +22,8 @@ jobs:
       CSC_KEY_PASSWORD: ${{ secrets.WINDOWS_CSC_KEY_PASSWORD }}
       WIN_PUBLISHER_NAME: ${{ vars.WINDOWS_PUBLISHER_NAME }}
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v6
         with:
           node-version: 24
           cache: npm
