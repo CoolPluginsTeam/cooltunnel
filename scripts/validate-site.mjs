@@ -47,6 +47,7 @@ const requiredRoutes = [
   "release-notes/index.html"
 ];
 await Promise.all(requiredRoutes.map((file) => access(path.join(root, file))));
+await access(path.join(root, ".htaccess"));
 
 for (const file of htmlFiles) {
   const html = await readFile(file, "utf8");

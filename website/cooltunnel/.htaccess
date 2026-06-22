@@ -1,0 +1,6 @@
+DirectoryIndex index.html
+
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteRule ^ - [END]
+</IfModule>

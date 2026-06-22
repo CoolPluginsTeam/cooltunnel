@@ -44,7 +44,7 @@ jobs:
         run: |
           $version = (Get-Content package.json | ConvertFrom-Json).version
           $archive = "CoolTunnel-Website-$version.zip"
-          Compress-Archive -Path "website/cooltunnel/*" -DestinationPath "release/$archive" -CompressionLevel Optimal
+          tar.exe -a -c -f "release/$archive" -C "website/cooltunnel" .
           $hash = (Get-FileHash -Algorithm SHA256 "release/$archive").Hash
           "$hash  $archive" | Set-Content "release/$archive.sha256" -Encoding ascii
       - name: Verify release files

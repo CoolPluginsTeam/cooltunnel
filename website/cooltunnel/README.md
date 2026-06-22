@@ -7,6 +7,10 @@ Upload the **contents of this directory** into the server directory that serves:
 The package is static HTML, CSS, JavaScript and images. It does not require a
 database, WordPress installation or build process.
 
+The included `.htaccess` keeps the CoolTunnel static routes separate from the
+parent WordPress rewrite rules. Make sure hidden files are extracted or upload
+`.htaccess` manually.
+
 Included routes:
 
 - `/cooltunnel/`
