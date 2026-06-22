@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="social" x1="0" y1="630" x2="1200" y2="0"><stop stop-color="#062F61"/><stop offset=".55" stop-color="#0870D2"/><stop offset="1" stop-color="#32A7FF"/></linearGradient>
+    <radialGradient id="glow"><stop stop-color="#52E4B2" stop-opacity=".35"/><stop offset="1" stop-color="#52E4B2" stop-opacity="0"/></radialGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#social)"/>
+  <circle cx="1010" cy="110" r="340" fill="url(#glow)"/>
+  <image href="cooltunnel-icon.svg" x="760" y="115" width="390" height="390"/>
+  <text x="90" y="235" font-family="Segoe UI, Arial, sans-serif" font-size="102" font-weight="780" fill="#fff">CoolTunnel</text>
+  <text x="96" y="303" font-family="Segoe UI, Arial, sans-serif" font-size="30" font-weight="700" fill="#72F0C1">BY COOL PLUGINS</text>
+  <text x="96" y="390" font-family="Segoe UI, Arial, sans-serif" font-size="42" fill="#E9F6FF">Share local sites instantly.</text>
+  <text x="96" y="450" font-family="Segoe UI, Arial, sans-serif" font-size="25" fill="#BDD9EE">Free • Open source • Privacy-first • Windows</text>
+  <rect x="96" y="500" width="390" height="62" rx="31" fill="#52E4B2"/>
+  <text x="291" y="540" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="22" font-weight="750" fill="#073F78">coolplugins.net/cooltunnel/</text>
+</svg>

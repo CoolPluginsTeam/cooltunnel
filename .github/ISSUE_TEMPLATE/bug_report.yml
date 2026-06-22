@@ -1,0 +1,57 @@
+name: Bug report
+description: Report a reproducible CoolTunnel problem
+title: "[Bug]: "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Do not include passwords, tokens, customer data, private source code, or unredacted filesystem paths.
+  - type: input
+    id: version
+    attributes:
+      label: CoolTunnel version
+      placeholder: 2.0.0
+    validations:
+      required: true
+  - type: dropdown
+    id: server
+    attributes:
+      label: Local server
+      options:
+        - Local / LocalWP
+        - Laragon
+        - XAMPP
+        - WampServer
+        - Other
+    validations:
+      required: true
+  - type: textarea
+    id: problem
+    attributes:
+      label: What happened?
+      description: Explain what you expected and what occurred.
+    validations:
+      required: true
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: Reproduction steps
+      placeholder: |
+        1. Open...
+        2. Enter...
+        3. Start...
+    validations:
+      required: true
+  - type: textarea
+    id: diagnostics
+    attributes:
+      label: Redacted logs or diagnostics
+      description: Attach only information you have reviewed and intentionally want to share.
+  - type: checkboxes
+    id: privacy
+    attributes:
+      label: Privacy check
+      options:
+        - label: I removed passwords, tokens, private content and unnecessary local paths.
+          required: true

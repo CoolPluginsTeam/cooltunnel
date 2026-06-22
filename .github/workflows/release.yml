@@ -1,0 +1,81 @@
+name: Release Windows
+
+on:
+  push:
+    tags:
+      - "v*"
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: windows-latest
+    env:
+      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      GH_OWNER: ${{ github.repository_owner }}
+      GH_REPO: ${{ github.event.repository.name }}
+      REQUIRE_UPDATE_METADATA: "true"
+      REQUIRE_SIGNING: "true"
+      STAGING_PERCENTAGE: "10"
+      CSC_LINK: ${{ secrets.WINDOWS_CSC_LINK }}
+      CSC_KEY_PASSWORD: ${{ secrets.WINDOWS_CSC_KEY_PASSWORD }}
+      WIN_PUBLISHER_NAME: ${{ vars.WINDOWS_PUBLISHER_NAME }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      - name: Download cloudflared
+        shell: pwsh
+        run: |
+          New-Item -ItemType Directory -Force resources/bin | Out-Null
+          Invoke-WebRequest "https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-windows-amd64.exe" -OutFile "resources/bin/cloudflared.exe"
+          & "resources/bin/cloudflared.exe" --version
+      - run: npm run test
+      - run: npm run typecheck
+      - run: npm audit --audit-level=high
+      - name: Build and publish update artifacts
+        run: npm run release:win
+      - name: Package CoolTunnel website
+        shell: pwsh
+        run: |
+          $version = (Get-Content package.json | ConvertFrom-Json).version
+          $archive = "CoolTunnel-Website-$version.zip"
+          Compress-Archive -Path "website/cooltunnel/*" -DestinationPath "release/$archive" -CompressionLevel Optimal
+          $hash = (Get-FileHash -Algorithm SHA256 "release/$archive").Hash
+          "$hash  $archive" | Set-Content "release/$archive.sha256" -Encoding ascii
+      - name: Verify release files
+        shell: pwsh
+        run: |
+          if (!(Test-Path "release/latest.yml")) { throw "latest.yml is missing" }
+          if (!(Get-ChildItem release -Filter "*.blockmap")) { throw "blockmap is missing" }
+          if (!(Get-ChildItem release -Filter "*.sha256")) { throw "SHA-256 file is missing" }
+          if (!(Get-ChildItem release -Filter "CoolTunnel-Website-*.zip")) { throw "Website upload package is missing" }
+          if ($env:CSC_LINK) {
+            $installer = Get-ChildItem release -Filter "CoolTunnel Setup *.exe" | Select-Object -First 1
+            $signature = Get-AuthenticodeSignature $installer.FullName
+            if ($signature.Status -ne "Valid") { throw "Signed release does not have a valid Authenticode signature" }
+          } else {
+            throw "Signing secret is required for a CoolTunnel production release."
+          }
+      - name: Publish signed release artifacts
+        shell: pwsh
+        run: |
+          $tag = "${{ github.ref_name }}"
+          if (!(gh release view $tag 2>$null)) {
+            gh release create $tag --title "CoolTunnel $tag" --notes-file RELEASE_NOTES.md
+          }
+          $artifacts = Get-ChildItem release -File | Where-Object {
+            $_.Name -like "CoolTunnel Setup *.exe" -or
+            $_.Name -like "*.blockmap" -or
+            $_.Name -like "*.sha256" -or
+            $_.Name -like "CoolTunnel-Website-*.zip" -or
+            $_.Name -eq "latest.yml"
+          }
+          gh release upload $tag $artifacts.FullName --clobber
+          if (Test-Path "RELEASE_NOTES.md") {
+            gh release edit $tag --notes-file RELEASE_NOTES.md
+          }

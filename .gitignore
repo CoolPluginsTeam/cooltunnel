@@ -1,0 +1,15 @@
+node_modules/
+dist/
+dist-electron/
+/release/
+/release-*/
+build/
+.npm-cache/
+.electron-cache/
+.electron-builder-cache/
+*.log
+resources/bin/cloudflared.exe
+website/*.zip
+site-package/
+.DS_Store
+Thumbs.db

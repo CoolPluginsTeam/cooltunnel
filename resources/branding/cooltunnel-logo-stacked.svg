@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 840">
+  <rect width="720" height="840" rx="64" fill="#F8FBFF"/>
+  <image href="cooltunnel-icon.svg" x="160" y="60" width="400" height="400"/>
+  <text x="360" y="555" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="88" font-weight="750" fill="#10233F">CoolTunnel</text>
+  <text x="360" y="625" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="30" font-weight="650" fill="#0870D2">BY COOL PLUGINS</text>
+  <text x="360" y="700" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="29" fill="#64748B">Share local sites instantly</text>
+</svg>

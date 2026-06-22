@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024">
+  <defs>
+    <linearGradient id="ct-bg" x1="120" y1="900" x2="900" y2="100" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#0759AA"/>
+      <stop offset=".52" stop-color="#0870D2"/>
+      <stop offset="1" stop-color="#32A7FF"/>
+    </linearGradient>
+    <linearGradient id="ct-path" x1="420" y1="760" x2="690" y2="390" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#52E4B2"/>
+      <stop offset="1" stop-color="#D8FFF2"/>
+    </linearGradient>
+    <filter id="ct-shadow" x="-25%" y="-25%" width="150%" height="150%">
+      <feDropShadow dx="0" dy="25" stdDeviation="30" flood-color="#043B75" flood-opacity=".35"/>
+    </filter>
+  </defs>
+  <rect x="48" y="48" width="928" height="928" rx="218" fill="url(#ct-bg)"/>
+  <path d="M226 522c0-77 58-140 133-148 30-94 117-161 220-161 121 0 220 92 231 211 77 13 136 80 136 161 0 90-73 163-163 163H347c-67 0-121-54-121-121Z" fill="#fff" filter="url(#ct-shadow)"/>
+  <path d="M348 720h134c64 0 116-52 116-116V454" fill="none" stroke="#073F78" stroke-width="70" stroke-linecap="round"/>
+  <path d="M351 720h131c64 0 116-52 116-116V454" fill="none" stroke="url(#ct-path)" stroke-width="34" stroke-linecap="round"/>
+  <path d="m532 513 66-66 66 66" fill="none" stroke="#073F78" stroke-width="42" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="350" cy="720" r="45" fill="#073F78"/>
+  <circle cx="350" cy="720" r="20" fill="#52E4B2"/>
+</svg>

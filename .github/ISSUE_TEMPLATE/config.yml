@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: CoolTunnel documentation
+    url: https://coolplugins.net/cooltunnel/docs/
+    about: Read setup and troubleshooting guidance before opening an issue.
+  - name: Security report
+    url: https://coolplugins.net/cooltunnel/support/
+    about: Report security-sensitive problems privately.

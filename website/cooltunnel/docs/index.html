@@ -1,0 +1,245 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>CoolTunnel Documentation</title>
+  <meta name="description" content="Complete setup, WordPress, Local, Laragon, troubleshooting and privacy documentation for CoolTunnel.">
+  <link rel="canonical" href="https://coolplugins.net/cooltunnel/docs/">
+  <link rel="icon" href="../assets/favicon.png">
+  <link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+  <header class="site-nav">
+    <a class="brand" href="../"><img src="../assets/cooltunnel-icon.png" alt=""><span>CoolTunnel <small>Documentation</small></span></a>
+    <nav><a href="../">Product</a><a aria-current="page" href="./">Documentation</a><a href="../support/">Support</a><a class="nav-download" href="https://github.com/CoolPluginsTeam/cooltunnel/releases/latest">Download</a></nav>
+  </header>
+
+  <div class="docs-layout">
+    <aside class="docs-sidebar" aria-label="Documentation sections">
+      <strong>On this page</strong>
+      <a href="#overview">Overview</a>
+      <a href="#requirements">Requirements</a>
+      <a href="#install">Install and upgrade</a>
+      <a href="#quick-start">Quick start</a>
+      <a href="#local-urls">Supported local URLs</a>
+      <a href="#profiles">Site profiles</a>
+      <a href="#localwp">Local / LocalWP</a>
+      <a href="#laragon">Laragon, XAMPP, WAMP</a>
+      <a href="#wordpress">WordPress compatibility</a>
+      <a href="#backups">Backups and removal</a>
+      <a href="#updates">Updates</a>
+      <a href="#diagnostics">Diagnostics</a>
+      <a href="#troubleshooting">Troubleshooting</a>
+      <a href="#privacy">Privacy and security</a>
+      <a href="#uninstall">Uninstall</a>
+      <a href="#developers">Developers</a>
+      <a href="#faq">FAQ</a>
+    </aside>
+
+    <main class="docs-main">
+      <header>
+        <p class="eyebrow">CoolTunnel 2.0.0</p>
+        <h1>Documentation</h1>
+        <p class="lead">Everything needed to share local Windows development sites with temporary public preview links.</p>
+        <div class="notice"><strong>Development previews only.</strong> Cloudflare Quick Tunnels are convenient temporary links, not production hosting. They have no uptime SLA and documented service limitations.</div>
+      </header>
+
+      <section id="overview">
+        <h2>Overview <a class="anchor" href="#overview">#</a></h2>
+        <p>CoolTunnel is a free Windows desktop utility that starts Cloudflare Quick Tunnels for local websites. It supports Local, Laragon, XAMPP, WampServer, WordPress, custom localhost ports, virtual hosts and subfolder sites.</p>
+        <p>The app runs <code>cloudflared</code> locally, reads the generated public address and gives you controls to copy, open and stop it. For WordPress, optional reversible compatibility changes prevent internal links from returning visitors to the local hostname.</p>
+        <img src="../assets/dashboard.png" alt="CoolTunnel dashboard showing a local site URL and tunnel controls">
+      </section>
+
+      <section id="requirements">
+        <h2>Requirements <a class="anchor" href="#requirements">#</a></h2>
+        <ul>
+          <li>Windows 10 or Windows 11, 64-bit.</li>
+          <li>A local website already running in Local, Laragon, XAMPP, WampServer or another local web server.</li>
+          <li>Internet access for the Cloudflare Quick Tunnel connection.</li>
+          <li>Write permission to the WordPress folder only when applying the optional WordPress fix.</li>
+        </ul>
+        <p>CoolTunnel bundles the official <code>cloudflared.exe</code>. You may select another compatible binary from Settings if required.</p>
+      </section>
+
+      <section id="install">
+        <h2>Install and upgrade <a class="anchor" href="#install">#</a></h2>
+        <h3>New installation</h3>
+        <ol>
+          <li>Download <strong>CoolTunnel Setup 2.0.0.exe</strong> from the official GitHub release.</li>
+          <li>Optionally compare its SHA-256 value with the accompanying checksum file.</li>
+          <li>Run the installer and choose the installation folder.</li>
+          <li>Open CoolTunnel from the Start menu or desktop shortcut.</li>
+        </ol>
+        <h3>Upgrade from Local to Cloud 1.x</h3>
+        <p>Install CoolTunnel normally. It retains the legacy NSIS upgrade identity and migrates compatible data from old application-data directories. Profiles, settings, scan folders, theme preferences and the last local URL are preserved.</p>
+        <div class="notice">Migration is recorded once. Removing an old scan folder later will not cause CoolTunnel to restore it repeatedly.</div>
+      </section>
+
+      <section id="quick-start">
+        <h2>Quick start <a class="anchor" href="#quick-start">#</a></h2>
+        <ol>
+          <li>Start the local site and confirm it opens in your browser.</li>
+          <li>Enter that same address on the CoolTunnel Dashboard.</li>
+          <li>If it is WordPress, select its folder and apply the recommended compatibility fix.</li>
+          <li>Select the router mode suggested by CoolTunnel. Keep <strong>Automatic</strong> unless troubleshooting.</li>
+          <li>Choose <strong>Start tunnel</strong>.</li>
+          <li>Wait for the public <code>trycloudflare.com</code> address, then copy or open it.</li>
+          <li>Choose <strong>Stop tunnel</strong> when the preview is finished.</li>
+        </ol>
+        <p>Only one Quick Tunnel runs at a time. Starting a second tunnel is blocked until the current one stops.</p>
+      </section>
+
+      <section id="local-urls">
+        <h2>Supported local URLs <a class="anchor" href="#local-urls">#</a></h2>
+        <table>
+          <thead><tr><th>Local address</th><th>How CoolTunnel treats it</th></tr></thead>
+          <tbody>
+            <tr><td><code>cool-plugins.local</code></td><td>Adds <code>http://</code> and preserves the virtual host.</td></tr>
+            <tr><td><code>https://cool-plugins.local/</code></td><td>Uses HTTPS and disables upstream certificate verification for local self-signed certificates by default.</td></tr>
+            <tr><td><code>localhost:50043</code></td><td>Tunnels the explicit port.</td></tr>
+            <tr><td><code>localhost/sitename</code></td><td>Tunnels the local server root and appends <code>/sitename</code> to the public link.</td></tr>
+            <tr><td><code>127.0.0.1:8080</code></td><td>Preserves the loopback host and custom port.</td></tr>
+          </tbody>
+        </table>
+        <p>Only HTTP and HTTPS inputs are accepted. Query strings and fragments are not used as tunnel origins.</p>
+      </section>
+
+      <section id="profiles">
+        <h2>Site profiles <a class="anchor" href="#profiles">#</a></h2>
+        <p>Profiles save a site name, local URL, WordPress folder, source type, SSL preference, public path and fix preferences. Favorite profiles appear first and can start a tunnel with one click.</p>
+        <h3>Sharing profile packs</h3>
+        <p>Exported JSON packs are versioned and validated during import. Local filesystem paths are excluded by default. Enable <strong>Include local paths</strong> only when every recipient should receive those machine-specific locations.</p>
+        <p>When names conflict, the import preview lets you skip or overwrite. Unknown fields are not imported.</p>
+      </section>
+
+      <section id="localwp">
+        <h2>Local / LocalWP <a class="anchor" href="#localwp">#</a></h2>
+        <p>CoolTunnel detects the standard <code>%USERPROFILE%\Local Sites</code> folder and Local's WordPress layout at:</p>
+        <pre class="code-block">&lt;site-name&gt;\app\public</pre>
+        <p>You can select the site folder, its <code>app</code> folder or the final <code>app\public</code> folder. CoolTunnel resolves the WordPress root automatically.</p>
+        <h3>Site Domains router mode</h3>
+        <p>For addresses such as <code>http://cool-plugins.local</code>, CoolTunnel uses a private loopback proxy that preserves the local host information upstream while presenting the public tunnel hostname to WordPress.</p>
+        <h3>Localhost router mode</h3>
+        <p>For addresses such as <code>http://localhost:10005</code>, choose Localhost mode when Local exposes a working localhost port. If that address does not open locally, use the working Site Domain address instead.</p>
+      </section>
+
+      <section id="laragon">
+        <h2>Laragon, XAMPP and WampServer <a class="anchor" href="#laragon">#</a></h2>
+        <p>Default scan roots include common folders such as:</p>
+        <pre class="code-block">C:\laragon\www
+C:\xampp\htdocs
+C:\wamp64\www</pre>
+        <p>Add alternate drives or custom server roots in Settings. For a Laragon virtual host such as <code>project.test</code>, use the domain that already opens locally. For a subfolder site, use <code>localhost/project</code>.</p>
+      </section>
+
+      <section id="wordpress">
+        <h2>WordPress compatibility <a class="anchor" href="#wordpress">#</a></h2>
+        <p>WordPress often generates absolute URLs from its configured local address. Without a compatibility layer, menus, media, canonical URLs, redirects and wp-admin may point back to the local hostname.</p>
+        <p>CoolTunnel can add a marked block to <code>wp-config.php</code>, install a managed must-use plugin at <code>wp-content\mu-plugins\cooltunnel.php</code>, and optionally add a marked wp-admin rule to <code>.htaccess</code>.</p>
+        <pre class="code-block">// BEGIN COOLTUNNEL WORDPRESS FIX
+// managed configuration
+// END COOLTUNNEL WORDPRESS FIX</pre>
+        <p>The generated public path is respected. A local site at <code>localhost/sitename</code> receives WordPress public URLs ending in <code>/sitename</code>.</p>
+        <h3>Legacy compatibility</h3>
+        <p>CoolTunnel recognizes managed Local to Cloud 1.x markers and <code>local-to-cloud-tunnel.php</code>. They can be replaced or removed safely during migration.</p>
+      </section>
+
+      <section id="backups">
+        <h2>Backups and removal <a class="anchor" href="#backups">#</a></h2>
+        <p>Before editing an existing WordPress file, CoolTunnel creates a timestamped backup beside it. Original line endings are preserved and edits are restricted to the selected WordPress folder.</p>
+        <ul>
+          <li>Only marked CoolTunnel or recognized legacy blocks are replaced or removed.</li>
+          <li>Removal does not search-and-delete unrelated PHP or Apache rules.</li>
+          <li>Managed fixes can remain after stopping a tunnel, or be removed automatically according to your preference.</li>
+        </ul>
+        <div class="warning"><strong>Keep backups while testing.</strong> If a site has unusual server rules, stop the tunnel and restore the timestamped backup before making unrelated configuration changes.</div>
+      </section>
+
+      <section id="updates">
+        <h2>Updates <a class="anchor" href="#updates">#</a></h2>
+        <p>Installed release builds check the stable GitHub release channel shortly after launch and every six hours. CoolTunnel never silently installs an update.</p>
+        <ol>
+          <li>An available version and release notes are shown on the About page.</li>
+          <li>You choose when to download it.</li>
+          <li>Progress is displayed in the app.</li>
+          <li>You choose <strong>Install and restart</strong>.</li>
+        </ol>
+        <p>Release metadata includes an installer blockmap, <code>latest.yml</code> and checksum. Production releases are intended to be signed by Cool Plugins LLP.</p>
+      </section>
+
+      <section id="diagnostics">
+        <h2>Diagnostic bundle <a class="anchor" href="#diagnostics">#</a></h2>
+        <p>The About page can export a ZIP containing sanitized settings, app and operating-system versions, tunnel state, recent session logs and scan results.</p>
+        <p>By default it redacts usernames, home directories, WordPress folders, tokens and configured executable paths. Select <strong>Include local filesystem paths</strong> only when you deliberately want those paths included for support.</p>
+      </section>
+
+      <section id="troubleshooting">
+        <h2>Troubleshooting <a class="anchor" href="#troubleshooting">#</a></h2>
+        <h3>The public link opens but internal links return to the local domain</h3>
+        <p>Confirm the correct WordPress folder is selected, reapply the CoolTunnel WordPress fix, and verify the managed MU plugin exists. Then stop and restart the tunnel so the current public hostname reaches WordPress.</p>
+        <h3>A Local Site Domain works, but its localhost port does not</h3>
+        <p>Use the working Site Domain URL and Automatic or Site Domain router mode. A Localhost router address must open directly on your own computer before CoolTunnel can tunnel it.</p>
+        <h3>The tunnel never receives a public URL</h3>
+        <p>Open Logs and look for a cloudflared connection error. Check internet access, firewall restrictions, endpoint security and whether another cloudflared process is already running.</p>
+        <h3>The app opens with an empty window</h3>
+        <p>Install the newest release. If the issue remains, export or locate the startup error log under the CoolTunnel application-data directory and send it through the CoolTunnel support page.</p>
+        <h3>WordPress wp-admin redirects incorrectly</h3>
+        <p>Apply the optional wp-admin redirect rule and confirm the public path matches the site path exactly once.</p>
+      </section>
+
+      <section id="privacy">
+        <h2>Privacy and security <a class="anchor" href="#privacy">#</a></h2>
+        <ul>
+          <li>No CoolTunnel account.</li>
+          <li>No telemetry, advertising SDK or behavioral analytics.</li>
+          <li>Settings and profiles are stored locally in your Windows user-data directory.</li>
+          <li>Session logs remain in memory unless you explicitly export a diagnostic bundle.</li>
+          <li>The compatibility proxy binds to <code>127.0.0.1</code>, not the public network.</li>
+          <li>The Electron renderer does not receive direct Node.js access.</li>
+        </ul>
+        <p>Traffic sent through a Quick Tunnel necessarily passes through Cloudflare's tunnel service. Review the dedicated <a class="text-link" href="../privacy/">CoolTunnel Privacy Notice</a> for scope and third-party processing.</p>
+      </section>
+
+      <section id="uninstall">
+        <h2>Uninstall <a class="anchor" href="#uninstall">#</a></h2>
+        <ol>
+          <li>Stop any active tunnel.</li>
+          <li>Remove managed WordPress fixes from the Sites page if you do not want them retained.</li>
+          <li>Open Windows Settings → Apps → Installed apps.</li>
+          <li>Select CoolTunnel and choose Uninstall.</li>
+        </ol>
+        <p>Application profiles and settings may remain in <code>%APPDATA%\CoolTunnel</code> to support reinstalling or upgrading. Delete that folder manually only if you also want to erase local CoolTunnel preferences.</p>
+      </section>
+
+      <section id="developers">
+        <h2>Developers and source <a class="anchor" href="#developers">#</a></h2>
+        <p>CoolTunnel is MIT licensed. Source, issue tracking and tagged releases are hosted at <a class="text-link" href="https://github.com/CoolPluginsTeam/cooltunnel">github.com/CoolPluginsTeam/cooltunnel</a>.</p>
+        <pre class="code-block">npm install
+npm run dev
+npm run test
+npm run typecheck
+npm run build
+npm run package:win</pre>
+        <p>Public tagged builds use Windows CI, download the official cloudflared binary, validate branding and release metadata, and require signing secrets before production publication.</p>
+      </section>
+
+      <section id="faq">
+        <h2>Frequently asked questions <a class="anchor" href="#faq">#</a></h2>
+        <h3>Can I use my own custom domain?</h3><p>Version 2.0.0 focuses on temporary Quick Tunnels. Named Cloudflare Tunnels, accounts and custom domains are not part of this release.</p>
+        <h3>Can teammates access my computer?</h3><p>Only the web service exposed through the active tunnel is reachable through the temporary link. Stop the tunnel when sharing is complete and never expose sensitive local admin tools.</p>
+        <h3>Does CoolTunnel edit the WordPress database?</h3><p>No. Its WordPress compatibility system uses reversible file-based configuration and a managed MU plugin.</p>
+        <h3>Where should I report a problem?</h3><p>Use the <a class="text-link" href="../support/">CoolTunnel support page</a> or open a GitHub issue. Include the app version, local server type and a redacted diagnostic bundle where useful.</p>
+      </section>
+    </main>
+  </div>
+
+  <footer class="site-footer">
+    <div class="footer-grid"><div><strong>CoolTunnel Documentation</strong><p class="muted">Created by Satinder Singh at Cool Plugins LLP.</p></div>
+    <div class="footer-links"><a href="../">Product</a><a href="../support/">Support</a><a href="../privacy/">Privacy</a><a href="../license/">MIT License</a><a href="../third-party-notices/">Notices</a><a href="../release-notes/">Release notes</a></div></div>
+    <p class="legal">Copyright © <span data-year>2026</span> Cool Plugins LLP.</p>
+  </footer>
+  <script src="../site.js"></script>
+</body>
+</html>

@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 260">
+  <g fill="none" stroke="#111827" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M54 142c0-39 29-71 67-75 15-48 60-82 112-82 62 0 112 47 118 108 39 7 69 41 69 82 0 46-37 83-83 83H116c-34 0-62-28-62-62Z" fill="#111827" stroke="none" transform="translate(0 0) scale(.72)"/>
+    <path d="M108 193h70c34 0 61-27 61-61V55" stroke="#fff" stroke-width="20"/>
+    <path d="m205 87 34-34 34 34" stroke="#fff" stroke-width="20"/>
+  </g>
+  <text x="340" y="135" font-family="Segoe UI, Arial, sans-serif" font-size="88" font-weight="750" fill="#111827">CoolTunnel</text>
+  <text x="345" y="195" font-family="Segoe UI, Arial, sans-serif" font-size="27" font-weight="650" fill="#111827">BY COOL PLUGINS</text>
+</svg>

@@ -1,0 +1,36 @@
+{
+  "schemaVersion": 1,
+  "productName": "CoolTunnel",
+  "lockup": "CoolTunnel by Cool Plugins",
+  "tagline": "Share local sites instantly",
+  "publisher": "Cool Plugins LLP",
+  "companyBrand": "Cool Plugins",
+  "author": "Satinder Singh",
+  "credit": "Created by Satinder Singh at Cool Plugins LLP",
+  "appId": "net.coolplugins.cooltunnel",
+  "legacyAppId": "com.localtocloud.app",
+  "packageName": "cooltunnel",
+  "executableName": "CoolTunnel",
+  "installerName": "CoolTunnel Setup",
+  "copyright": "Copyright © 2026 Cool Plugins LLP",
+  "license": "MIT",
+  "urls": {
+    "product": "https://coolplugins.net/cooltunnel/",
+    "company": "https://coolplugins.net/",
+    "documentation": "https://coolplugins.net/cooltunnel/docs/",
+    "support": "https://coolplugins.net/cooltunnel/support/",
+    "privacy": "https://coolplugins.net/cooltunnel/privacy/",
+    "license": "https://coolplugins.net/cooltunnel/license/",
+    "thirdPartyNotices": "https://coolplugins.net/cooltunnel/third-party-notices/",
+    "releaseNotes": "https://coolplugins.net/cooltunnel/release-notes/",
+    "source": "https://github.com/CoolPluginsTeam/cooltunnel",
+    "releases": "https://github.com/CoolPluginsTeam/cooltunnel/releases"
+  },
+  "assets": {
+    "icon": "resources/branding/cooltunnel-icon.svg",
+    "horizontalLogo": "resources/branding/cooltunnel-logo-horizontal.svg",
+    "stackedLogo": "resources/branding/cooltunnel-logo-stacked.svg",
+    "monochromeLogo": "resources/branding/cooltunnel-logo-monochrome.svg",
+    "socialPreview": "resources/branding/cooltunnel-social-preview.svg"
+  }
+}
